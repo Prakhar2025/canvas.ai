@@ -1,36 +1,318 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="public/logo.svg" alt="Canvas AI Logo" width="120" height="120" />
+</p>
 
-## Getting Started
+<h1 align="center">Canvas AI</h1>
 
-First, run the development server:
+<p align="center">
+  <strong>The AI-Native Workspace That Builds Itself</strong>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#demo">Demo</a> •
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#contributing">Contributing</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Tambo-AI-purple?style=for-the-badge" alt="Tambo" />
+</p>
+
+---
+
+## 🌟 Vision
+
+**Canvas AI** reimagines how humans interact with software. Instead of navigating through menus, clicking buttons, and learning complex interfaces — you simply *describe* what you need, and the interface builds itself.
+
+> "The best interface is no interface. The next best is one that creates itself."
+
+This is not a chatbot. This is not a dashboard. This is **the future of human-computer interaction** — a blank canvas that transforms into any application based on natural language.
+
+---
+
+## 🎯 The Problem
+
+Modern software is broken:
+
+| Problem | Impact |
+|---------|--------|
+| **Interface Overload** | Users spend 30% of their time navigating, not working |
+| **One-Size-Fits-All** | Every user sees the same UI regardless of their needs |
+| **Learning Curve** | New tools require hours of training |
+| **Context Switching** | Users juggle 10+ apps to complete one workflow |
+
+---
+
+## 💡 The Solution
+
+Canvas AI introduces **Generative UI** — interfaces that construct themselves in real-time based on user intent.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  USER: "I need to plan a product launch"                        │
+│                                                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │  📋 Tasks    │  │  📅 Timeline │  │  💰 Budget   │          │
+│  │  ━━━━━━━━    │  │  [Gantt]     │  │  [Pie Chart] │          │
+│  │  □ Research  │  │              │  │              │          │
+│  │  □ Design    │  │              │  │              │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+│                                                                 │
+│  USER: "Add competitor analysis"                                │
+│                                                                 │
+│  ┌────────────────────────────────────────────────────┐        │
+│  │  📊 Competitor Matrix                               │        │
+│  │  [Auto-generated comparison table]                  │        │
+│  └────────────────────────────────────────────────────┘        │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🧠 Generative UI Engine
+Components render dynamically based on natural language. The AI understands context and chooses the right visualization.
 
-## Learn More
+### 🎨 8 Intelligent Components
 
-To learn more about Next.js, take a look at the following resources:
+| Component | Triggers | Capability |
+|-----------|----------|------------|
+| **ProjectBoard** | "plan", "organize", "tasks" | Kanban-style task management |
+| **Checklist** | "todo", "list", "track" | Interactive task lists with progress |
+| **NotesEditor** | "notes", "write", "document" | Rich text editing |
+| **DataChart** | "chart", "visualize", "graph" | Dynamic bar/line/pie charts |
+| **BudgetTracker** | "budget", "expenses", "costs" | Financial tables with totals |
+| **Timeline** | "timeline", "schedule", "milestones" | Horizontal event timeline |
+| **Timer** | "timer", "pomodoro", "focus" | Focus sessions with tracking |
+| **ComparisonTable** | "compare", "versus", "analyze" | Feature comparison matrices |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🌌 Premium Design System
+- **Glassmorphism** — Frosted glass cards with depth
+- **Dark Mode First** — Easy on the eyes, premium feel
+- **Micro-animations** — Every interaction feels alive
+- **Responsive** — Seamless from mobile to desktop
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### ⚡ Built for Performance
+- Server-side rendering with Next.js 14
+- Optimized bundle with tree-shaking
+- Lazy-loaded components
+- Edge-ready deployment
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎬 Demo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> 🚧 Live demo coming soon after deployment
+
+**Preview:**
+```
+[Screenshot placeholder - Canvas with multiple components rendered]
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- Tambo API key ([Get one here](https://tambo.co))
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Prakhar2025/canvas.ai.git
+cd canvas.ai
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Add your TAMBO_API_KEY to .env.local
+
+# Start development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see Canvas AI in action.
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_TAMBO_API_KEY` | Your Tambo API key | Yes |
+
+---
+
+## 🏗️ Architecture
+
+Canvas AI follows a modular, component-driven architecture optimized for AI-powered interfaces.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        CANVAS AI                            │
+├─────────────────────────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
+│  │   Next.js   │  │   Tambo     │  │   Zustand   │         │
+│  │   App Router│  │   SDK       │  │   State     │         │
+│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘         │
+│         │                │                │                 │
+│  ┌──────▼────────────────▼────────────────▼──────┐         │
+│  │              Component Registry               │         │
+│  │  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐    │         │
+│  │  │Task │ │Chart│ │Notes│ │Timer│ │Table│    │         │
+│  │  └─────┘ └─────┘ └─────┘ └─────┘ └─────┘    │         │
+│  └───────────────────────────────────────────────┘         │
+│                          │                                  │
+│  ┌───────────────────────▼───────────────────────┐         │
+│  │              Canvas Renderer                   │         │
+│  │         (Dynamic Component Orchestration)      │         │
+│  └───────────────────────────────────────────────┘         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed system design.
+
+---
+
+## 📁 Project Structure
+
+```
+canvas-ai/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── layout.tsx          # Root layout with providers
+│   │   ├── page.tsx            # Main canvas page
+│   │   └── globals.css         # Design system tokens
+│   ├── components/
+│   │   ├── canvas/             # Canvas container components
+│   │   │   ├── Canvas.tsx
+│   │   │   ├── CanvasHeader.tsx
+│   │   │   └── CommandInput.tsx
+│   │   ├── generative/         # AI-rendered components
+│   │   │   ├── ProjectBoard.tsx
+│   │   │   ├── Checklist.tsx
+│   │   │   ├── NotesEditor.tsx
+│   │   │   ├── DataChart.tsx
+│   │   │   ├── BudgetTracker.tsx
+│   │   │   ├── Timeline.tsx
+│   │   │   ├── Timer.tsx
+│   │   │   └── ComparisonTable.tsx
+│   │   └── ui/                 # Reusable UI primitives
+│   │       ├── GlassCard.tsx
+│   │       ├── Button.tsx
+│   │       └── Input.tsx
+│   └── lib/
+│       ├── tambo.ts            # Tambo configuration
+│       ├── registry.ts         # Component registry
+│       └── store.ts            # Global state
+├── docs/                       # Documentation
+├── public/                     # Static assets
+└── package.json
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| **Framework** | Next.js 14 | SSR, routing, optimization |
+| **Language** | TypeScript | Type safety, DX |
+| **Styling** | Tailwind CSS | Utility-first styling |
+| **Animation** | Framer Motion | Fluid animations |
+| **Charts** | Recharts | Data visualization |
+| **Icons** | Lucide React | Consistent iconography |
+| **State** | Zustand | Lightweight state management |
+| **AI** | Tambo SDK | Generative UI engine |
+| **Hosting** | Vercel | Edge deployment |
+
+---
+
+## 🧪 Development
+
+```bash
+# Run development server
+npm run dev
+
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+---
+
+## 🗺️ Roadmap
+
+### Phase 1: MVP (Current)
+- [x] Project setup
+- [ ] Documentation
+- [ ] Design system
+- [ ] Core components
+- [ ] Tambo integration
+- [ ] Deployment
+
+### Phase 2: Enhancement
+- [ ] User authentication
+- [ ] Workspace persistence
+- [ ] Component drag-and-drop
+- [ ] Keyboard shortcuts
+
+### Phase 3: Scale
+- [ ] Real-time collaboration
+- [ ] API integrations (Google Calendar, Notion, Slack)
+- [ ] Custom component builder
+- [ ] Mobile app
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Tambo](https://tambo.co) — For the incredible Generative UI SDK
+- [WeMakeDevs](https://wemakedevs.org) — For hosting "The UI Strikes Back" hackathon
+- [Vercel](https://vercel.com) — For seamless deployment
+
+---
+
+<p align="center">
+  Built with 💜 by <a href="https://github.com/Prakhar2025">Prakhar</a>
+</p>
+
+<p align="center">
+  <sub>The future of interfaces is generative. The future is Canvas AI.</sub>
+</p>
