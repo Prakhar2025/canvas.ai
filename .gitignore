@@ -39,3 +39,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Local env files (IMPORTANT: Never commit API keys!)
+.env
+.env.local
+.env.development
+.env.production
+
+# Cache
+.cache/
+.eslintcache
