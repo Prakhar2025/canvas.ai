@@ -17,5 +17,14 @@ export type { BudgetTrackerProps } from './BudgetTracker';
 export { Checklist } from './Checklist';
 export type { ChecklistProps } from './Checklist';
 
+export { Timer } from './Timer';
+export type { TimerProps } from './Timer';
+
+export { DataChart } from './DataChart';
+export type { DataChartProps } from './DataChart';
+
+export { Timeline } from './Timeline';
+export type { TimelineProps } from './Timeline';
+
 // Error handling
 export { ErrorBoundary, withErrorBoundary } from './ErrorBoundary';
