@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { TamboProvider } from "@/providers";
 import "./globals.css";
 
 /* ============================================
@@ -108,7 +109,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
-        {children}
+        <TamboProvider>
+          {children}
+        </TamboProvider>
       </body>
     </html>
   );
