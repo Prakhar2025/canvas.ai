@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
    animations and multiple variants
    ============================================ */
 
-export interface GlassCardProps extends MotionProps {
+export interface GlassCardProps extends Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>, MotionProps {
   /** Card content */
   children: ReactNode;
   /** Visual variant of the card */

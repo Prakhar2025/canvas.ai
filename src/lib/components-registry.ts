@@ -26,10 +26,10 @@ import { z } from 'zod';
 export const componentsRegistry: TamboComponent[] = [
     {
         name: 'ProjectBoard',
-        description: 'A Kanban-style project board for managing tasks with columns like To Do, In Progress, and Done. Use this when the user wants to organize a project, track tasks, or manage workflow.',
+        description: 'A Kanban-style project board. Use this when the user mentions "project", "tasks", "kanban", "board", or "manage". ALWAYS try to generate 3-5 realistic initial tasks based on the user\'s intent instead of leaving it empty.',
         component: ProjectBoard,
         propsDefinition: z.object({
-            title: z.string().default('Project Board').describe('The title of the project board'),
+            title: z.string().default('Project Board').describe('The title of the project board (e.g. "Marketing Campaign", "Website Redesign")'),
             columns: z.array(z.string()).default(['To Do', 'In Progress', 'Done']).describe('List of column names'),
             tasks: z.array(z.object({
                 id: z.string(),
@@ -37,12 +37,12 @@ export const componentsRegistry: TamboComponent[] = [
                 description: z.string().optional(),
                 status: z.string(),
                 priority: z.enum(['Low', 'Medium', 'High']).optional(),
-            })).default([]).describe('Initial list of tasks to populate the board with'),
+            })).default([]).describe('List of initial tasks. PLEASE GENERATE 3-5 RELEVANT TASKS based on the user request.'),
         }),
     },
     {
         name: 'BudgetTracker',
-        description: 'A dashboard for tracking budget, expenses, income, and savings. Use this when the user wants to manage finances, track spending, or plan a budget.',
+        description: 'A finance dashboard for budget and expenses. Use this when the user mentions "budget", "finance", "money", "track", or "spending". ALWAYS generate known/realistic expenses/categories unless user specifies otherwise.',
         component: BudgetTracker,
         propsDefinition: z.object({
             categories: z.array(z.string()).default(['Food', 'Rent', 'Utilities', 'Entertainment']).describe('List of expense categories'),
@@ -55,12 +55,12 @@ export const componentsRegistry: TamboComponent[] = [
                 amount: z.number(),
                 description: z.string(),
                 date: z.string(),
-            })).default([]).describe('List of initial expenses'),
+            })).default([]).describe('List of initial expenses to populate the tracker (make them realistic).'),
         }),
     },
     {
         name: 'Checklist',
-        description: 'A simple interactive checklist for TODOs, grocery lists, or step-by-step guides. Use this for simple lists that don\'t require a full Kanban board.',
+        description: 'A simple interactive checklist. Use this for "todo list", "grocery list", "steps", or "guide". ALWAYS populate with all the necessary items to complete the user\'s goal.',
         component: Checklist,
         propsDefinition: z.object({
             title: z.string().default('Checklist').describe('The title of the checklist'),
@@ -68,7 +68,7 @@ export const componentsRegistry: TamboComponent[] = [
                 id: z.string(),
                 text: z.string(),
                 completed: z.boolean().default(false),
-            })).default([]).describe('List of checklist items'),
+            })).default([]).describe('List of checklist items. PLEASE GENERATE A COMPLETE LIST based on the user request.'),
         }),
     },
 ];
