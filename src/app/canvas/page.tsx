@@ -1,6 +1,8 @@
 'use client';
 
-import { Canvas } from '@/components/canvas';
+import dynamic from 'next/dynamic';
+
+const Canvas = dynamic(() => import('@/components/canvas/Canvas'), { ssr: false });
 
 /* ============================================
    CANVAS PAGE

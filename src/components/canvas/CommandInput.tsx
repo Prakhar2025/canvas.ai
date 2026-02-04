@@ -4,6 +4,7 @@ import { forwardRef, useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Send, Loader2, Command } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { VoiceInput } from './VoiceInput';
 
 /* ============================================
    COMMAND INPUT
@@ -78,6 +79,11 @@ export const CommandInput = forwardRef<HTMLTextAreaElement, CommandInputProps>(
             textareaRef.current?.focus();
         };
 
+        const handleVoiceTranscript = (text: string) => {
+            setValue(text);
+            textareaRef.current?.focus();
+        };
+
         return (
             <div className={cn('relative w-full', className)}>
                 {/* Main Input Container */}
@@ -98,8 +104,16 @@ export const CommandInput = forwardRef<HTMLTextAreaElement, CommandInputProps>(
                             : '0 0 0px transparent',
                     }}
                 >
-                    {/* AI Icon */}
+                    {/* Voice Input Button - Left side */}
                     <div className="shrink-0 mb-1">
+                        <VoiceInput
+                            onTranscript={handleVoiceTranscript}
+                            disabled={isLoading || disabled}
+                        />
+                    </div>
+
+                    {/* AI Icon */}
+                    <div className="shrink-0 mb-1 hidden sm:block">
                         <motion.div
                             className={cn(
                                 'w-10 h-10 rounded-xl',

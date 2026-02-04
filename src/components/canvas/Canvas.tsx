@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTamboThread, useTamboGenerationStage } from '@tambo-ai/react';
+import { useTamboThread, useTamboStreamStatus } from '@tambo-ai/react';
 import { MessageSquare, Sparkles, User } from 'lucide-react';
 import { CanvasHeader } from './CanvasHeader';
 import { AnimatedBackground } from './AnimatedBackground';
@@ -50,16 +50,25 @@ export function Canvas() {
         sendThreadMessage,
     } = useTamboThread();
 
-    // Use generation stage for accurate loading state
-    const { isIdle, generationStatusMessage } = useTamboGenerationStage();
+    // Use stream status for real-time feedback
+    const { streamStatus } = useTamboStreamStatus();
 
-    // isLoading is true when NOT idle (i.e., AI is working)
-    const isLoading = !isIdle;
+    // isLoading is true when AI is thinking or generating
+    const isLoading = streamStatus.isPending || streamStatus.isStreaming;
+
+    // Status message based on stream state
+    const getStatusMessage = () => {
+        if (streamStatus.isPending) return 'Thinking...';
+        if (streamStatus.isStreaming) return 'Designing interface...';
+        if (streamStatus.isSuccess) return 'Done';
+        if (streamStatus.isError) return 'Error generating';
+        return 'Idle';
+    };
 
     // Auto-scroll to bottom when new messages arrive
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [thread?.messages]);
+    }, [thread?.messages, streamStatus]);
 
     // Send a message
     const handleSendMessage = useCallback(async (message: string) => {
@@ -200,7 +209,7 @@ export function Canvas() {
                                             <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-bounce" style={{ animationDelay: '300ms' }} />
                                         </div>
                                         <span className="text-sm text-[#94A3B8]">
-                                            {generationStatusMessage || 'Thinking...'}
+                                            {getStatusMessage()}
                                         </span>
                                     </div>
                                 </GlassCard>

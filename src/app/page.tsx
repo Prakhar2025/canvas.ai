@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, Zap, Layers, Palette, Terminal } from 'lucide-react';
-import { AnimatedBackground, CanvasHeader } from '@/components/canvas';
+import { ArrowRight, Sparkles, Zap, Layers, Palette, Terminal } from 'lucide-react';
+import { AnimatedBackground } from '@/components/canvas/AnimatedBackground';
+import { CanvasHeader } from '@/components/canvas/CanvasHeader';
 import { GlassCard, Button, Input } from '@/components/ui';
 
 /* ============================================
