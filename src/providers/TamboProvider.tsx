@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { TamboProvider as BaseTamboProvider, TamboThreadProvider } from '@tambo-ai/react';
 import { componentsRegistry } from '@/lib/components-registry';
+import { toolsRegistry } from '@/lib/tools-registry';
 
 /* ============================================
    TAMBO PROVIDER WRAPPER
@@ -48,6 +49,7 @@ export function TamboProvider({ children }: TamboProviderProps) {
         <BaseTamboProvider
             apiKey={apiKey}
             components={componentsRegistry}
+            tools={toolsRegistry}
         >
             <TamboThreadProvider>
                 {children}
