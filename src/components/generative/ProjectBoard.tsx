@@ -1,21 +1,16 @@
 'use client';
 
+// ... imports
 import { useState, useCallback, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, MoreHorizontal, Clock, X } from 'lucide-react';
 import { GlassCard } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import { withInteractable, useTamboComponentState } from '@tambo-ai/react';
 
 /* ============================================
    PROJECT BOARD COMPONENT
-   
-   A Kanban-style board for managing tasks.
-   Features:
-   - Multiple columns (To Do, In Progress, Done)
-   - Task cards with priority indicators
-   - Add new tasks functionality
-   - Accessible keyboard navigation
    ============================================ */
 
 /** Priority color mappings for visual indicators */
@@ -38,6 +33,17 @@ export const ProjectBoardSchema = z.object({
     })).optional(),
 });
 
+/** State schema for synchronization */
+const ProjectBoardStateSchema = z.object({
+    tasks: z.array(z.object({
+        id: z.string(),
+        title: z.string(),
+        description: z.string().optional(),
+        status: z.string(),
+        priority: z.enum(['Low', 'Medium', 'High']).optional(),
+    })),
+});
+
 /** Props type inferred from Zod schema */
 export type ProjectBoardProps = z.infer<typeof ProjectBoardSchema>;
 
@@ -52,34 +58,22 @@ interface Task {
 
 /**
  * ProjectBoard - A Kanban-style project management component
- * 
- * @description Renders an interactive Kanban board with columns and task cards.
- * Supports adding new tasks, priority indicators, and keyboard navigation.
- * 
- * @param {string} title - The title displayed in the board header
- * @param {string[]} columns - Array of column names (e.g., ["To Do", "Done"])
- * @param {Task[]} tasks - Initial tasks to populate the board
- * 
- * @example
- * <ProjectBoard
- *   title="Sprint 1"
- *   columns={["To Do", "In Progress", "Done"]}
- *   tasks={[{ id: "1", title: "Task 1", status: "To Do" }]}
- * />
  */
-export function ProjectBoard({
+function ProjectBoardBase({
     title = "Project Board",
     columns = ["To Do", "In Progress", "Done"],
     tasks: initialTasks = []
 }: ProjectBoardProps) {
-    const [tasks, setTasks] = useState<Task[]>(initialTasks);
+    // Sync 'tasks' state with Tambo
+    const [tasks, setTasks] = useTamboComponentState<Task[]>('tasks', initialTasks);
+
     const [addingToColumn, setAddingToColumn] = useState<string | null>(null);
     const [newTaskTitle, setNewTaskTitle] = useState('');
     const instanceId = useId();
 
     /** Get tasks filtered by column status */
     const getTasksByStatus = useCallback((status: string): Task[] => {
-        return tasks.filter(task => task.status === status);
+        return (tasks || []).filter(task => task.status === status);
     }, [tasks]);
 
     /** Add a new task to a specific column */
@@ -93,15 +87,17 @@ export function ProjectBoard({
             priority: 'Medium',
         };
 
-        setTasks(prev => [...prev, newTask]);
+        const currentTasks = tasks || [];
+        setTasks([...currentTasks, newTask]);
         setNewTaskTitle('');
         setAddingToColumn(null);
-    }, [newTaskTitle]);
+    }, [newTaskTitle, tasks, setTasks]);
 
     /** Delete a task by ID */
     const handleDeleteTask = useCallback((taskId: string) => {
-        setTasks(prev => prev.filter(task => task.id !== taskId));
-    }, []);
+        const currentTasks = tasks || [];
+        setTasks(currentTasks.filter(task => task.id !== taskId));
+    }, [tasks, setTasks]);
 
     /** Handle keyboard events for accessibility */
     const handleKeyDown = useCallback((e: React.KeyboardEvent, column: string) => {
@@ -289,5 +285,13 @@ export function ProjectBoard({
         </GlassCard>
     );
 }
+
+// Export as interactable component
+export const ProjectBoard = withInteractable(ProjectBoardBase, {
+    componentName: "ProjectBoard",
+    description: "A Kanban-style project board. Users can add, move, and complete tasks.",
+    propsSchema: ProjectBoardSchema,
+    stateSchema: ProjectBoardStateSchema
+});
 
 export default ProjectBoard;

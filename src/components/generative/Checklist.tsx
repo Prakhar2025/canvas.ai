@@ -1,26 +1,30 @@
 'use client';
 
+// ... imports
 import { useState, useCallback, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, ListChecks, X, Check } from 'lucide-react';
 import { GlassCard } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import { withInteractable, useTamboComponentState } from '@tambo-ai/react';
 
 /* ============================================
    CHECKLIST COMPONENT
-   
-   A simple interactive checklist.
-   Features:
-   - Check/uncheck items with animations
-   - Add/remove items
-   - Progress bar visualization
-   - Accessible keyboard navigation
    ============================================ */
 
 /** Zod schema for type validation */
 export const ChecklistSchema = z.object({
     title: z.string(),
+    items: z.array(z.object({
+        id: z.string(),
+        text: z.string(),
+        completed: z.boolean(),
+    })),
+});
+
+/** State schema for synchronization */
+const ChecklistStateSchema = z.object({
     items: z.array(z.object({
         id: z.string(),
         text: z.string(),
@@ -40,37 +44,25 @@ interface ChecklistItem {
 
 /**
  * Checklist - An interactive todo/checklist component
- * 
- * @description Renders an interactive checklist with progress tracking,
- * the ability to add/remove/toggle items, and smooth animations.
- * 
- * @param {string} title - The title displayed in the checklist header
- * @param {ChecklistItem[]} items - Initial list of checklist items
- * 
- * @example
- * <Checklist
- *   title="Grocery Shopping"
- *   items={[
- *     { id: "1", text: "Milk", completed: false },
- *     { id: "2", text: "Eggs", completed: true },
- *   ]}
- * />
  */
-export function Checklist({
+function ChecklistBase({
     title = "Checklist",
     items: initialItems = []
 }: ChecklistProps) {
-    const [items, setItems] = useState<ChecklistItem[]>(initialItems);
+    // Sync 'items' state with Tambo
+    const [items, setItems] = useTamboComponentState<ChecklistItem[]>('items', initialItems);
+
     const [isAddingItem, setIsAddingItem] = useState(false);
     const [newItemText, setNewItemText] = useState('');
     const instanceId = useId();
 
     /** Toggle item completion status */
     const toggleItem = useCallback((id: string) => {
-        setItems(prev => prev.map(item =>
+        const currentItems = items || [];
+        setItems(currentItems.map(item =>
             item.id === id ? { ...item, completed: !item.completed } : item
         ));
-    }, []);
+    }, [items, setItems]);
 
     /** Add a new item to the list */
     const handleAddItem = useCallback(() => {
@@ -82,15 +74,17 @@ export function Checklist({
             completed: false,
         };
 
-        setItems(prev => [...prev, newItem]);
+        const currentItems = items || [];
+        setItems([...currentItems, newItem]);
         setNewItemText('');
         setIsAddingItem(false);
-    }, [newItemText]);
+    }, [newItemText, items, setItems]);
 
     /** Delete an item by ID */
     const handleDeleteItem = useCallback((itemId: string) => {
-        setItems(prev => prev.filter(item => item.id !== itemId));
-    }, []);
+        const currentItems = items || [];
+        setItems(currentItems.filter(item => item.id !== itemId));
+    }, [items, setItems]);
 
     /** Handle keyboard events for accessibility */
     const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -103,8 +97,9 @@ export function Checklist({
     }, [handleAddItem]);
 
     // Calculate progress
-    const completedCount = items.filter(i => i.completed).length;
-    const progress = items.length > 0 ? (completedCount / items.length) * 100 : 0;
+    const itemsList = items || [];
+    const completedCount = itemsList.filter(i => i.completed).length;
+    const progress = itemsList.length > 0 ? (completedCount / itemsList.length) * 100 : 0;
 
     return (
         <GlassCard
@@ -122,7 +117,7 @@ export function Checklist({
                         </div>
                         <div>
                             <h3 className="text-base sm:text-lg font-semibold text-white">{title}</h3>
-                            <p className="text-xs text-gray-400">{completedCount}/{items.length} completed</p>
+                            <p className="text-xs text-gray-400">{completedCount}/{itemsList.length} completed</p>
                         </div>
                     </div>
                     <button
@@ -141,7 +136,7 @@ export function Checklist({
                     aria-valuenow={progress}
                     aria-valuemin={0}
                     aria-valuemax={100}
-                    aria-label={`Progress: ${completedCount} of ${items.length} items completed`}
+                    aria-label={`Progress: ${completedCount} of ${itemsList.length} items completed`}
                 >
                     <motion.div
                         className="h-full bg-linear-to-r from-indigo-500 to-purple-500"
@@ -192,7 +187,7 @@ export function Checklist({
                     )}
 
                     {/* Checklist Items */}
-                    {items.map((item) => (
+                    {itemsList.map((item) => (
                         <motion.div
                             key={item.id}
                             initial={{ opacity: 0, y: -10 }}
@@ -251,7 +246,7 @@ export function Checklist({
                 </AnimatePresence>
 
                 {/* Empty State */}
-                {items.length === 0 && !isAddingItem && (
+                {itemsList.length === 0 && !isAddingItem && (
                     <div className="text-center py-8">
                         <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[rgba(255,255,255,0.03)] flex items-center justify-center">
                             <ListChecks className="w-5 h-5 text-gray-500" />
@@ -267,7 +262,7 @@ export function Checklist({
                 )}
 
                 {/* Add Button */}
-                {items.length > 0 && !isAddingItem && (
+                {itemsList.length > 0 && !isAddingItem && (
                     <button
                         onClick={() => setIsAddingItem(true)}
                         className="w-full mt-2 py-2.5 flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-white hover:bg-[rgba(255,255,255,0.05)] rounded-lg transition-colors border border-dashed border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)]"
@@ -281,5 +276,13 @@ export function Checklist({
         </GlassCard>
     );
 }
+
+// Export as interactable component
+export const Checklist = withInteractable(ChecklistBase, {
+    componentName: "Checklist",
+    description: "An interactive checklist component. Users can add, check/uncheck, and delete items.",
+    propsSchema: ChecklistSchema,
+    stateSchema: ChecklistStateSchema
+});
 
 export default Checklist;
