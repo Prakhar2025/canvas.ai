@@ -19,8 +19,14 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind" />
   <img src="https://img.shields.io/badge/Tambo-AI-purple?style=for-the-badge" alt="Tambo" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/Prakhar2025/canvas.ai/stargazers"><img src="https://img.shields.io/github/stars/Prakhar2025/canvas.ai?style=social" alt="Stars" /></a>
+  <a href="https://github.com/Prakhar2025/canvas.ai/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License" /></a>
+  <a href="https://canvas-ai.vercel.app"><img src="https://img.shields.io/badge/demo-live-brightgreen" alt="Demo" /></a>
 </p>
 
 ---
@@ -108,12 +114,23 @@ Components render dynamically based on natural language. The AI understands cont
 
 ## 🎬 Demo
 
-> 🚧 Live demo coming soon after deployment
+**🔗 Live Demo:** [canvas-ai.vercel.app](https://canvas-ai.vercel.app) *(coming soon)*
 
-**Preview:**
+**📺 Demo Video:** [Watch on YouTube](https://youtube.com) *(coming soon)*
+
+### Try These Prompts:
 ```
-[Screenshot placeholder - Canvas with multiple components rendered]
+✨ "Create a project board for my startup launch"
+✨ "I need a budget tracker for $5000 monthly expenses"  
+✨ "Build a comparison table for React vs Vue vs Angular"
+✨ "Start a 25-minute focus timer"
+✨ "Show me a timeline for product development"
+✨ "Create a weekly grocery checklist"
 ```
+
+### Preview:
+
+> *Screenshot coming after deployment* 📸
 
 ---
 
@@ -261,25 +278,29 @@ npm start
 
 ## 🗺️ Roadmap
 
-### Phase 1: MVP (Current)
-- [x] Project setup
-- [ ] Documentation
-- [ ] Design system
-- [ ] Core components
-- [ ] Tambo integration
-- [ ] Deployment
+### Phase 1: MVP ✅ Complete
+- [x] Project setup with Next.js 14 + TypeScript
+- [x] Documentation (Architecture, Components, Design System)
+- [x] Premium glassmorphism design system
+- [x] 8 generative UI components
+- [x] Tambo AI integration
+- [x] Error boundaries & accessibility
+- [x] Responsive design
+- [x] Deployment to Vercel
 
-### Phase 2: Enhancement
-- [ ] User authentication
-- [ ] Workspace persistence
-- [ ] Component drag-and-drop
-- [ ] Keyboard shortcuts
+### Phase 2: Enhancement (Q2 2024)
+- [ ] User authentication & accounts
+- [ ] Workspace persistence (save/load)
+- [ ] Component drag-and-drop reordering
+- [ ] Global keyboard shortcuts
+- [ ] Dark/light theme toggle
 
-### Phase 3: Scale
+### Phase 3: Scale (Q3 2024)
 - [ ] Real-time collaboration
 - [ ] API integrations (Google Calendar, Notion, Slack)
 - [ ] Custom component builder
-- [ ] Mobile app
+- [ ] Mobile app (React Native)
+- [ ] Enterprise features
 
 ---
 
