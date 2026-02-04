@@ -26,5 +26,11 @@ export type { DataChartProps } from './DataChart';
 export { Timeline } from './Timeline';
 export type { TimelineProps } from './Timeline';
 
+export { NotesEditor } from './NotesEditor';
+export type { NotesEditorProps } from './NotesEditor';
+
+export { ComparisonTable } from './ComparisonTable';
+export type { ComparisonTableProps } from './ComparisonTable';
+
 // Error handling
 export { ErrorBoundary, withErrorBoundary } from './ErrorBoundary';
