@@ -6,6 +6,7 @@ import { Play, Pause, RotateCcw, Clock, Coffee, Brain, Target, Settings, Volume2
 import { GlassCard } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import { withInteractable, useTamboComponentState } from '@tambo-ai/react';
 
 /* ============================================
    TIMER COMPONENT
@@ -28,6 +29,12 @@ export const TimerSchema = z.object({
     sessionsBeforeLongBreak: z.number().default(4).describe('Number of work sessions before a long break'),
     autoStartBreaks: z.boolean().default(false).describe('Automatically start breaks'),
     autoStartWork: z.boolean().default(false).describe('Automatically start work sessions'),
+});
+
+/** State schema for AI synchronization */
+const TimerStateSchema = z.object({
+    completedSessions: z.number(),
+    isRunning: z.boolean(),
 });
 
 /** Props type inferred from Zod schema */
@@ -63,7 +70,7 @@ const modeConfig: Record<TimerMode, { label: string; icon: typeof Clock; color: 
  *   shortBreakDuration={5}
  * />
  */
-export function Timer({
+function TimerBase({
     title = 'Focus Timer',
     workDuration = 25,
     shortBreakDuration = 5,
@@ -75,7 +82,8 @@ export function Timer({
     const [mode, setMode] = useState<TimerMode>('work');
     const [timeLeft, setTimeLeft] = useState(workDuration * 60);
     const [isRunning, setIsRunning] = useState(false);
-    const [completedSessions, setCompletedSessions] = useState(0);
+    // Sync completed sessions with Tambo for AI awareness
+    const [completedSessions, setCompletedSessions] = useTamboComponentState<number>('completedSessions', 0);
     const [soundEnabled, setSoundEnabled] = useState(true);
     const [showSettings, setShowSettings] = useState(false);
     const [customWork, setCustomWork] = useState(workDuration);
@@ -127,9 +135,10 @@ export function Timer({
     /** Handle session completion */
     const handleSessionComplete = useCallback(() => {
         playSound();
+        const sessionCount = completedSessions || 0;
 
         if (mode === 'work') {
-            const newCompletedSessions = completedSessions + 1;
+            const newCompletedSessions = sessionCount + 1;
             setCompletedSessions(newCompletedSessions);
 
             // Determine next break type
@@ -148,7 +157,7 @@ export function Timer({
             setTimeLeft(getDuration('work'));
             if (autoStartWork) setIsRunning(true);
         }
-    }, [mode, completedSessions, sessionsBeforeLongBreak, getDuration, autoStartBreaks, autoStartWork, playSound]);
+    }, [mode, completedSessions, sessionsBeforeLongBreak, getDuration, autoStartBreaks, autoStartWork, playSound, setCompletedSessions]);
 
     /** Timer effect */
     useEffect(() => {
@@ -358,7 +367,7 @@ export function Timer({
                         </motion.button>
 
                         <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)]">
-                            <span className="text-sm font-medium text-white">{completedSessions}</span>
+                            <span className="text-sm font-medium text-white">{completedSessions || 0}</span>
                             <span className="text-xs text-gray-500 ml-1">sessions</span>
                         </div>
                     </div>
@@ -432,5 +441,13 @@ export function Timer({
         </GlassCard>
     );
 }
+
+// Export as interactable component with AI bi-directional sync
+export const Timer = withInteractable(TimerBase, {
+    componentName: "Timer",
+    description: "A Pomodoro/Focus timer component. Tracks work sessions, breaks, and the AI can query session progress and suggest breaks.",
+    propsSchema: TimerSchema,
+    stateSchema: TimerStateSchema
+});
 
 export default Timer;

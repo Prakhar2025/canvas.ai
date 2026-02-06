@@ -6,6 +6,7 @@ import { TrendingUp, TrendingDown, DollarSign, Wallet, Plus, X } from 'lucide-re
 import { GlassCard } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import { withInteractable, useTamboComponentState } from '@tambo-ai/react';
 
 /* ============================================
    BUDGET TRACKER COMPONENT
@@ -31,6 +32,18 @@ export const BudgetTrackerSchema = z.object({
         description: z.string(),
         date: z.string(),
     })).optional(),
+});
+
+/** State schema for AI synchronization */
+const BudgetTrackerStateSchema = z.object({
+    expenses: z.array(z.object({
+        id: z.string(),
+        category: z.string(),
+        amount: z.number(),
+        description: z.string(),
+        date: z.string(),
+    })),
+    budget: z.number(),
 });
 
 /** Props type inferred from Zod schema */
@@ -65,15 +78,16 @@ interface Expense {
  *   startingBudget={3000}
  * />
  */
-export function BudgetTracker({
+function BudgetTrackerBase({
     categories = ["Groceries", "Rent", "Utilities", "Entertainment"],
     currency = "USD",
     trackingPeriod = "Monthly",
     startingBudget = 0,
     expenses: initialExpenses = []
 }: BudgetTrackerProps) {
-    const [expenses, setExpenses] = useState<Expense[]>(initialExpenses);
-    const [budget, setBudget] = useState<number>(startingBudget);
+    // Sync state with Tambo for bi-directional AI awareness
+    const [expenses, setExpenses] = useTamboComponentState<Expense[]>('expenses', initialExpenses);
+    const [budget, setBudget] = useTamboComponentState<number>('budget', startingBudget);
     const [isEditingBudget, setIsEditingBudget] = useState(startingBudget === 0);
     const [budgetInput, setBudgetInput] = useState(startingBudget > 0 ? startingBudget.toString() : '');
     const [isAddingExpense, setIsAddingExpense] = useState(false);
@@ -83,10 +97,12 @@ export function BudgetTracker({
         category: categories[0] || 'Other',
     });
 
-    // Calculate totals
-    const totalSpent = expenses.reduce((sum, item) => sum + item.amount, 0);
-    const remaining = budget - totalSpent;
-    const percentUsed = budget > 0 ? (totalSpent / budget) * 100 : 0;
+    // Calculate totals with safe access
+    const expenseList = expenses || [];
+    const currentBudget = budget || 0;
+    const totalSpent = expenseList.reduce((sum, item) => sum + item.amount, 0);
+    const remaining = currentBudget - totalSpent;
+    const percentUsed = currentBudget > 0 ? (totalSpent / currentBudget) * 100 : 0;
 
     /** Format number as currency */
     const formatCurrency = useCallback((amount: number): string => {
@@ -113,15 +129,15 @@ export function BudgetTracker({
             date: new Date().toLocaleDateString(),
         };
 
-        setExpenses(prev => [expense, ...prev]);
+        setExpenses([expense, ...expenseList]);
         setNewExpense({ description: '', amount: '', category: categories[0] || 'Other' });
         setIsAddingExpense(false);
-    }, [newExpense, categories]);
+    }, [newExpense, categories, expenseList, setExpenses]);
 
     /** Delete an expense */
     const handleDeleteExpense = useCallback((expenseId: string) => {
-        setExpenses(prev => prev.filter(e => e.id !== expenseId));
-    }, []);
+        setExpenses(expenseList.filter(e => e.id !== expenseId));
+    }, [expenseList, setExpenses]);
 
     /** Save budget amount */
     const handleSaveBudget = useCallback(() => {
@@ -130,7 +146,7 @@ export function BudgetTracker({
             setBudget(amount);
             setIsEditingBudget(false);
         }
-    }, [budgetInput]);
+    }, [budgetInput, setBudget]);
 
     /** Handle keyboard events for expenses */
     const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -147,9 +163,9 @@ export function BudgetTracker({
             handleSaveBudget();
         } else if (e.key === 'Escape') {
             setIsEditingBudget(false);
-            setBudgetInput(budget.toString());
+            setBudgetInput(currentBudget.toString());
         }
-    }, [handleSaveBudget, budget]);
+    }, [handleSaveBudget, currentBudget]);
 
     return (
         <GlassCard
@@ -193,11 +209,11 @@ export function BudgetTracker({
                             </div>
                         ) : (
                             <button
-                                onClick={() => { setIsEditingBudget(true); setBudgetInput(budget.toString()); }}
+                                onClick={() => { setIsEditingBudget(true); setBudgetInput(currentBudget.toString()); }}
                                 className="text-xl font-bold text-white hover:text-emerald-300 transition-colors"
                                 title="Click to edit budget"
                             >
-                                {formatCurrency(budget)}
+                                {formatCurrency(currentBudget)}
                             </button>
                         )}
                     </div>
@@ -208,13 +224,13 @@ export function BudgetTracker({
                     <div
                         className="p-3 sm:p-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)]"
                         role="status"
-                        aria-label={`Budget: ${formatCurrency(budget)}`}
+                        aria-label={`Budget: ${formatCurrency(currentBudget)}`}
                     >
                         <div className="flex items-center gap-2 mb-2 text-emerald-400">
                             <TrendingUp className="w-4 h-4" />
                             <span className="text-xs font-medium uppercase">Budget</span>
                         </div>
-                        <p className="text-xl sm:text-2xl font-bold text-white">{formatCurrency(budget)}</p>
+                        <p className="text-xl sm:text-2xl font-bold text-white">{formatCurrency(currentBudget)}</p>
                     </div>
 
                     <div
@@ -331,10 +347,10 @@ export function BudgetTracker({
                 </AnimatePresence>
 
                 {/* Expenses List */}
-                {expenses.length > 0 ? (
+                {expenseList.length > 0 ? (
                     <div className="space-y-2 max-h-[300px] overflow-y-auto" role="list" aria-label="Expense list">
                         <AnimatePresence>
-                            {expenses.map((expense) => (
+                            {expenseList.map((expense) => (
                                 <motion.div
                                     key={expense.id}
                                     initial={{ opacity: 0, x: -20 }}
@@ -385,5 +401,13 @@ export function BudgetTracker({
         </GlassCard>
     );
 }
+
+// Export as interactable component with AI bi-directional sync
+export const BudgetTracker = withInteractable(BudgetTrackerBase, {
+    componentName: "BudgetTracker",
+    description: "A finance dashboard for tracking budget and expenses. Users can set budget, add/remove expenses, and the AI can query totals and suggest optimizations.",
+    propsSchema: BudgetTrackerSchema,
+    stateSchema: BudgetTrackerStateSchema
+});
 
 export default BudgetTracker;
