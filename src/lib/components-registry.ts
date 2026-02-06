@@ -7,12 +7,13 @@ import { DataChart } from '@/components/generative/DataChart';
 import { Timeline } from '@/components/generative/Timeline';
 import { NotesEditor } from '@/components/generative/NotesEditor';
 import { ComparisonTable } from '@/components/generative/ComparisonTable';
+import { Whiteboard, WhiteboardSchema } from '@/components/generative/Whiteboard';
 import { z } from 'zod';
 
 /* ============================================
    COMPONENTS REGISTRY
    
-   Central registry of all 8 generative UI components
+   Central registry of all 10 generative UI components
    that Tambo can render based on user intent.
    
    Each component is registered with:
@@ -166,6 +167,14 @@ export const componentsRegistry: TamboComponent[] = [
             showWordCount: z.boolean().default(true).describe('Show word count'),
             autoSave: z.boolean().default(true).describe('Enable auto-save'),
         }),
+    },
+
+    // ========== DIAGRAMS ==========
+    {
+        name: 'Whiteboard',
+        description: 'An interactive drawing canvas. Use for "whiteboard", "diagram", "draw", "sketch", "flowchart", or "brainstorm".',
+        component: Whiteboard,
+        propsDefinition: WhiteboardSchema,
     },
 ];
 

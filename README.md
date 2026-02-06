@@ -85,7 +85,7 @@ Canvas AI introduces **Generative UI** — interfaces that construct themselves 
 ### 🧠 Generative UI Engine
 Components render dynamically based on natural language. The AI understands context and chooses the right visualization.
 
-### 🎨 8 Intelligent Components
+### 🎨 10 Intelligent Components
 
 | Component | Triggers | Capability |
 |-----------|----------|------------|
@@ -97,6 +97,20 @@ Components render dynamically based on natural language. The AI understands cont
 | **Timeline** | "timeline", "schedule", "milestones" | Horizontal event timeline |
 | **Timer** | "timer", "pomodoro", "focus" | Focus sessions with tracking |
 | **ComparisonTable** | "compare", "versus", "analyze" | Feature comparison matrices |
+| **CodeSnippet** | "code", "function", "script" | Syntax-highlighted code with copy/download |
+| **Whiteboard** | "draw", "diagram", "sketch" | Interactive drawing canvas |
+
+### 🛠️ 7 AI-Powered Tools
+
+| Tool | What It Does | Example |
+|------|--------------|--------|
+| **Calculator** | Math & percentages | "What's 20% of $15000?" |
+| **Weather** | Location weather | "Weather in Tokyo" |
+| **Time** | Current date/time | "What time is it?" |
+| **Quote** | Inspirational quotes | "Give me a motivation quote" |
+| **Memory** | Context persistence | "Remember my budget is $5000" |
+| **Export** | Share workspace | "Export as markdown" |
+| **Web Search** | Real-time data | "Search latest AI news" |
 
 ### 🌌 Premium Design System
 - **Glassmorphism** — Frosted glass cards with depth
@@ -105,12 +119,14 @@ Components render dynamically based on natural language. The AI understands cont
 - **Responsive** — Seamless from mobile to desktop
 
 ### ⚡ Superpowers (Agentic OS)
-- **Voice Control** — Speak your constraints naturally.
-- **Bi-Directional Sync** — Drag a card, and the AI knows. Check a box, and the AI tracks progress.
-- **Smart Tools** — The Agent can browse the web for real-time data or check the time to plan your schedule.
+- **Voice Control** — Speak your commands naturally
+- **Bi-Directional Sync** — Drag a card, and the AI knows. Check a box, and the AI tracks progress
+- **Smart Tools** — Calculator, weather, time, quotes, memory, export & web search
+- **Keyboard Shortcuts** — Ctrl+K command palette, Ctrl+/ voice toggle, Ctrl+Enter submit
+- **Auto-Save** — Workspace persistence with localStorage
 
 ### 🚀 Built for Performance
-- Server-side rendering with Next.js 14
+- Server-side rendering with Next.js 16
 - Optimized bundle with tree-shaking
 - Lazy-loaded components
 - Edge-ready deployment
@@ -129,8 +145,10 @@ Components render dynamically based on natural language. The AI understands cont
 ✨ "I need a budget tracker for $5000 monthly expenses"  
 ✨ "Build a comparison table for React vs Vue vs Angular"
 ✨ "Start a 25-minute focus timer"
-✨ "Show me a timeline for product development"
-✨ "Create a weekly grocery checklist"
+✨ "Show me a Python function for fibonacci"
+✨ "Create a whiteboard for brainstorming"
+✨ "What's 15% tip on $85?"
+✨ "Weather in New York"
 ```
 
 ### Preview:
