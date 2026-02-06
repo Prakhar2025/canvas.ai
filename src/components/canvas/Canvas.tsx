@@ -202,9 +202,9 @@ export function Canvas() {
                                 <GlassCard variant="default" padding="md" animate={false}>
                                     <div className="flex items-center gap-2">
                                         <div className="flex gap-1">
-                                            <span className="w-2 h-2 rounded-full bg-[#6366F1] animate-bounce" style={{ animationDelay: '0ms' }} />
-                                            <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-bounce" style={{ animationDelay: '150ms' }} />
-                                            <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-bounce" style={{ animationDelay: '300ms' }} />
+                                            <span className="w-2 h-2 rounded-full bg-[#6366F1] animate-bounce animation-delay-0" />
+                                            <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-bounce animation-delay-150" />
+                                            <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-bounce animation-delay-300" />
                                         </div>
                                         <span className="text-sm text-[#94A3B8]">
                                             {getStatusMessage()}
