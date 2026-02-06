@@ -1,7 +1,7 @@
 'use client';
 
 // ... imports
-import { useState, useCallback, useId } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, ListChecks, X, Check } from 'lucide-react';
 import { GlassCard } from '@/components/ui';
@@ -54,7 +54,6 @@ function ChecklistBase({
 
     const [isAddingItem, setIsAddingItem] = useState(false);
     const [newItemText, setNewItemText] = useState('');
-    const instanceId = useId();
 
     /** Toggle item completion status */
     const toggleItem = useCallback((id: string) => {

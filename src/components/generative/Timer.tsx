@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef, useId } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, Clock, Coffee, Brain, Target, Settings, Volume2, VolumeX } from 'lucide-react';
 import { GlassCard } from '@/components/ui';
@@ -83,8 +83,6 @@ export function Timer({
     const [customLongBreak, setCustomLongBreak] = useState(longBreakDuration);
 
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
-    const audioRef = useRef<HTMLAudioElement | null>(null);
-    const instanceId = useId();
 
     /** Get duration based on mode */
     const getDuration = useCallback((m: TimerMode): number => {

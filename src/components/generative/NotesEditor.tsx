@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useCallback, useId, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import {
     FileText,
     Bold,
@@ -12,8 +11,6 @@ import {
     AlignLeft,
     AlignCenter,
     AlignRight,
-    Link,
-    Image,
     Code,
     Heading1,
     Heading2,
@@ -119,7 +116,6 @@ export function NotesEditor({
     const [copied, setCopied] = useState(false);
     const [activeFormats, setActiveFormats] = useState<Set<string>>(new Set());
     const editorRef = useRef<HTMLDivElement>(null);
-    const instanceId = useId();
 
     // Calculate word and character count
     const wordCount = content.trim() ? content.trim().split(/\s+/).length : 0;

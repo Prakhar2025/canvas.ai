@@ -172,7 +172,7 @@ export default function HomePage() {
             initial="hidden"
             animate="visible"
           >
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <motion.div key={feature.title} variants={itemVariants}>
                 <GlassCard
                   variant="default"

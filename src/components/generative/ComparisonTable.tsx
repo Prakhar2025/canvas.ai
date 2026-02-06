@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useId, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Table2,
@@ -9,8 +9,6 @@ import {
     Check,
     Minus,
     ArrowUpDown,
-    ChevronUp,
-    ChevronDown,
     Star,
     Sparkles
 } from 'lucide-react';
@@ -96,7 +94,6 @@ export function ComparisonTable({
     const [isAddingFeature, setIsAddingFeature] = useState(false);
     const [newItemName, setNewItemName] = useState('');
     const [newFeatureName, setNewFeatureName] = useState('');
-    const instanceId = useId();
 
     // Calculate scores for each item
     const itemScores = useMemo(() => {
@@ -161,7 +158,8 @@ export function ComparisonTable({
     const handleDeleteItem = useCallback((itemId: string) => {
         setItems(prev => prev.filter(i => i.id !== itemId));
         setFeatures(prev => prev.map(f => {
-            const { [itemId]: _, ...rest } = f.values;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { [itemId]: _removed, ...rest } = f.values;
             return { ...f, values: rest };
         }));
     }, []);

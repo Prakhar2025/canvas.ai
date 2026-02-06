@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, MicOff, Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mic, MicOff } from 'lucide-react';
 import { useTamboVoice } from '@tambo-ai/react';
 import { cn } from '@/lib/utils';
 

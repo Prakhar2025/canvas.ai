@@ -199,7 +199,7 @@ GlassCardHeader.displayName = 'GlassCardHeader';
    GLASS CARD CONTENT
    ============================================ */
 
-export interface GlassCardContentProps extends HTMLAttributes<HTMLDivElement> { }
+export type GlassCardContentProps = HTMLAttributes<HTMLDivElement>;
 
 export const GlassCardContent = forwardRef<HTMLDivElement, GlassCardContentProps>(
   ({ className, children, ...props }, ref) => {
@@ -221,7 +221,7 @@ GlassCardContent.displayName = 'GlassCardContent';
    GLASS CARD FOOTER
    ============================================ */
 
-export interface GlassCardFooterProps extends HTMLAttributes<HTMLDivElement> { }
+export type GlassCardFooterProps = HTMLAttributes<HTMLDivElement>;
 
 export const GlassCardFooter = forwardRef<HTMLDivElement, GlassCardFooterProps>(
   ({ className, children, ...props }, ref) => {

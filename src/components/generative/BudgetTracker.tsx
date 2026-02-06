@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useId } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TrendingUp, TrendingDown, DollarSign, Wallet, Plus, X } from 'lucide-react';
 import { GlassCard } from '@/components/ui';
@@ -82,7 +82,6 @@ export function BudgetTracker({
         amount: '',
         category: categories[0] || 'Other',
     });
-    const instanceId = useId();
 
     // Calculate totals
     const totalSpent = expenses.reduce((sum, item) => sum + item.amount, 0);
@@ -379,7 +378,7 @@ export function BudgetTracker({
                             <DollarSign className="w-5 h-5 text-gray-500" />
                         </div>
                         <p className="text-sm text-gray-400">No expenses recorded yet</p>
-                        <p className="text-xs text-gray-500 mt-1">Click "Add" to log your first expense</p>
+                        <p className="text-xs text-gray-500 mt-1">Click &quot;Add&quot; to log your first expense</p>
                     </div>
                 )}
             </div>

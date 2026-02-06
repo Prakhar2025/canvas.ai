@@ -43,6 +43,7 @@ export const CommandInput = forwardRef<HTMLTextAreaElement, CommandInputProps>(
             disabled = false,
             className,
         },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ref
     ) => {
         const [value, setValue] = useState('');

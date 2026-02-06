@@ -1,7 +1,7 @@
 'use client';
 
 // ... imports
-import { useState, useCallback, useId } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, MoreHorizontal, Clock, X } from 'lucide-react';
 import { GlassCard } from '@/components/ui';
@@ -69,7 +69,6 @@ function ProjectBoardBase({
 
     const [addingToColumn, setAddingToColumn] = useState<string | null>(null);
     const [newTaskTitle, setNewTaskTitle] = useState('');
-    const instanceId = useId();
 
     /** Get tasks filtered by column status */
     const getTasksByStatus = useCallback((status: string): Task[] => {

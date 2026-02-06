@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTamboThread, useTamboStreamStatus } from '@tambo-ai/react';
+import { useTamboThread } from '@tambo-ai/react';
 import { MessageSquare, Sparkles, User } from 'lucide-react';
 import { CanvasHeader } from './CanvasHeader';
 import { AnimatedBackground } from './AnimatedBackground';
@@ -48,27 +48,25 @@ export function Canvas() {
     const {
         thread,
         sendThreadMessage,
+        streaming,
+        isIdle,
+        generationStatusMessage
     } = useTamboThread();
 
-    // Use stream status for real-time feedback
-    const { streamStatus } = useTamboStreamStatus();
-
     // isLoading is true when AI is thinking or generating
-    const isLoading = streamStatus.isPending || streamStatus.isStreaming;
+    const isLoading = !isIdle;
 
     // Status message based on stream state
     const getStatusMessage = () => {
-        if (streamStatus.isPending) return 'Thinking...';
-        if (streamStatus.isStreaming) return 'Designing interface...';
-        if (streamStatus.isSuccess) return 'Done';
-        if (streamStatus.isError) return 'Error generating';
+        if (!isIdle && generationStatusMessage) return generationStatusMessage;
+        if (streaming) return 'Designing interface...';
         return 'Idle';
     };
 
     // Auto-scroll to bottom when new messages arrive
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [thread?.messages, streamStatus]);
+    }, [thread?.messages, streaming]);
 
     // Send a message
     const handleSendMessage = useCallback(async (message: string) => {

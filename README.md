@@ -104,7 +104,12 @@ Components render dynamically based on natural language. The AI understands cont
 - **Micro-animations** — Every interaction feels alive
 - **Responsive** — Seamless from mobile to desktop
 
-### ⚡ Built for Performance
+### ⚡ Superpowers (Agentic OS)
+- **Voice Control** — Speak your constraints naturally.
+- **Bi-Directional Sync** — Drag a card, and the AI knows. Check a box, and the AI tracks progress.
+- **Smart Tools** — The Agent can browse the web for real-time data or check the time to plan your schedule.
+
+### 🚀 Built for Performance
 - Server-side rendering with Next.js 14
 - Optimized bundle with tree-shaking
 - Lazy-loaded components
@@ -284,6 +289,9 @@ npm start
 - [x] Premium glassmorphism design system
 - [x] 8 generative UI components
 - [x] Tambo AI integration
+- [x] **Advanced Voice Control** 🎙️
+- [x] **Interactable Components** (Two-way AI Sync) ↔️
+- [x] **AI Agent Tools** (Web Search & Time Awareness) 🛠️
 - [x] Error boundaries & accessibility
 - [x] Responsive design
 - [x] Deployment to Vercel

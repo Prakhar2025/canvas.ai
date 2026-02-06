@@ -9,7 +9,6 @@ import {
     TrendingUp,
     TrendingDown,
     Minus,
-    Download,
     Maximize2
 } from 'lucide-react';
 import {
