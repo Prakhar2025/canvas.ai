@@ -163,7 +163,7 @@ Components render dynamically based on natural language. The AI understands cont
 
 ## 🎬 Demo
 
-**🔗 Live Demo:** [canvas-ai.vercel.app](https://canvas-ai.vercel.app) *(coming soon)*
+**🔗 Live Demo:** [canvas-ai-nu.vercel.app](https://canvas-ai-nu.vercel.app)
 
 **📺 Demo Video:** [Watch on YouTube](https://youtube.com) *(coming soon)*
 

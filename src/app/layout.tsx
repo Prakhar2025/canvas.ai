@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
    ============================================ */
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://canvas-ai.vercel.app"),
+  metadataBase: new URL("https://canvas-ai-nu.vercel.app"),
   title: {
     default: "Canvas AI - The AI-Native Workspace",
     template: "%s | Canvas AI",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://canvas-ai.vercel.app",
+    url: "https://canvas-ai-nu.vercel.app",
     title: "Canvas AI - The AI-Native Workspace",
     description:
       "A generative workspace that builds itself based on what you need.",

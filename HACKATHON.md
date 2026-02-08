@@ -387,7 +387,7 @@ AI: Restores entire state - all components intact
 
 ## 📞 Contact & Links
 
-- **Live Demo**: [canvas-ai.vercel.app](https://canvas-ai.vercel.app) *(deploy in progress)*
+- **Live Demo**: [canvas-ai-nu.vercel.app](https://canvas-ai-nu.vercel.app)
 - **GitHub**: [github.com/Prakhar2025/canvas.ai](https://github.com/Prakhar2025/canvas.ai)
 - **Demo Video**: *Coming soon*
 - **Developer**: Prakhar Srivastava
