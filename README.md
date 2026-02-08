@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind" />
   <img src="https://img.shields.io/badge/Tambo-AI-purple?style=for-the-badge" alt="Tambo" />
@@ -26,7 +26,17 @@
 <p align="center">
   <a href="https://github.com/Prakhar2025/canvas.ai/stargazers"><img src="https://img.shields.io/github/stars/Prakhar2025/canvas.ai?style=social" alt="Stars" /></a>
   <a href="https://github.com/Prakhar2025/canvas.ai/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License" /></a>
-  <a href="https://canvas-ai.vercel.app"><img src="https://img.shields.io/badge/demo-live-brightgreen" alt="Demo" /></a>
+  <a href="https://canvas-ai-nu.vercel.app"><img src="https://img.shields.io/badge/demo-live-brightgreen" alt="Demo" /></a>
+</p>
+
+<p align="center">
+  <a href="https://canvas-ai-nu.vercel.app">🚀 Try Live Demo</a>
+</p>
+
+---
+
+<p align="center">
+  <img src="public/images/hero.png" alt="Canvas AI Demo" width="100%" />
 </p>
 
 ---
